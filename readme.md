@@ -39,7 +39,7 @@ Cada vez que un compañero actualice la estructura o los datos, debes clonar o a
 
 2. **Ejecuta los scripts en tu cliente MySQL en el siguiente orden estricto:**
    * Ejecutar `01_DDLesqueme.sql` (Esto borrará la base de datos anterior y creará la estructura limpia).
-   * Ejecutar `DMLDatos.sql` (Poblará las tablas con los datos ficticios acordados).
+   * Ejecutar `02_DMLDatos.sql` (Poblará las tablas con los datos ficticios acordados).
    * ¡Listo! Ya puedes probar tus consultas sobre datos reales.
 
 ---
@@ -71,8 +71,6 @@ La rama `main` es sagrada y contiene únicamente código funcional y aprobado. N
   Cuando termines tu tarea y la hayas probado localmente en tu MySQL, sube tu rama al servidor remoto:
        git push origin tu-nombre/funcionalidad
 
-* **Paso 5: Crear un Pull Request (PR)**
-  Ve a la interfaz de GitHub del proyecto y abre un **Pull Request** desde tu rama hacia `main`. Describe brevemente qué cambios incluye tu código.
 
 ### 3. Integración y Revisión
 * El líder/integrador del proyecto revisará el Pull Request en GitHub.
