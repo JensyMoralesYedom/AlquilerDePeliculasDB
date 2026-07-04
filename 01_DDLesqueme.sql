@@ -55,3 +55,72 @@ CREATE TABLE ejemplares (
     CONSTRAINT fk_ejemplares_formatos FOREIGN KEY (id_formatos) 
         REFERENCES formatos (id_formato) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE clientes
+(
+	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+	id_membresia INT NOT NULL,
+	nombre VARCHAR(75) NOT NULL,
+	apellido VARCHAR(75) NOT NULL,
+	cedula VARCHAR(14) NOT NULL, 
+	correo VARCHAR(75) NULL,
+	direccion VARCHAR(200) NULL,
+	estado ENUM('activo', 'inactivo') DEFAULT 'activo',
+	telefono VARCHAR(20) null
+	fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+	
+	CONSTRAINT fk_cliente_membresia
+	FOREIGN KEY (id_membresia)
+	REFERENCES membresias(id_membresia);
+);
+
+CREATE TABLE empleados
+(
+	id_empleado INT PRIMARY KEY AUTO_INCREMENT,
+	nombre VARCHAR(75) NOT NULL,
+	apellido VARCHAR(75) NOT NULL,
+	rol VARCHAR(75) NOT NULL,
+	telefono VARCHAR(20) NULL,
+	direccion VARCHAR(200) NULL,
+	tipo_documento ENUM('cedula', 'pasaporte') DEFAULT 'cedula',
+	documento_id VARCHAR(25) NOT NULL,
+	fecha_nacimiento VARCHAR(12) NULL,
+	sueldo_base INT NOT NULL,
+	estado ENUM('Activo', 'inactivo') DEFAULT 'activo'
+);
+
+CREATE TABLE penalizaciones
+(
+	id_penalizacion INT PRIMARY KEY AUTO_INCREMENT,
+	id_alquiler INT NOT NULL,
+	id_cliente INT NOT NULL,
+	descripcion VARCHAR(400) NOT NULL,
+	tipo_penalizacion ENUM('Daño', 'retraso', 'perdida') DEFAULT 'perdida' ,
+	estado ENUM('Pagada', 'retrasada', 'cancelada') DEFAULT 'retrasada' ,
+	monto_penalizacion DECIMAL NOT NULL,
+	fecha_pago DATETIME NOT null,
+	Fecha_penalizacion DATETIME DEFAULT CURRENT_TIMESTAMP
+	
+	CONSTRAINT fk_penalizacion_alquiler
+    FOREIGN KEY (id_alquiler)
+    REFERENCES alquileres(id_alquiler),
+
+    CONSTRAINT fk_penalizacion_cliente
+    FOREIGN KEY (id_cliente)
+    REFERENCES clientes(id_cliente)
+	
+);
+
+CREATE TABLE membresias
+(
+    id_membresia INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(255),
+    precio DECIMAL(10,2) NOT NULL,
+    duracion_dias INT NOT NULL,
+    limite_alquileres INT NOT NULL,
+    descuento DECIMAL(5,2) DEFAULT 0.00,
+    estado ENUM('activa','inactiva') DEFAULT 'activa',
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+

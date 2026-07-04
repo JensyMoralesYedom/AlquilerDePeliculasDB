@@ -104,3 +104,55 @@ INSERT INTO ejemplares (id_pelicula, id_formatos, estado, codigo_barras) VALUES
 (18, 3, 'disponible', 'BAR-BAS-001'), -- Bastardos Sin Gloria en Blu-ray
 (19, 2, 'disponible', 'BAR-PAS-001'), -- ¿Qué pasó ayer? en DVD
 (20, 1, 'disponible', 'BAR-PSI-001'); -- Psicosis en VHS
+
+INSERT INTO clientes 
+(nombre,apellido, cedula, correo, direccion, estado, telefono )VALUES
+('William',	'Cruz',	'330-0000000-0', 'ejemplo@gmail.com', 'Villa Francisca 2da', 'activo','829-999-9999')
+INSERT INTO empleados
+(
+    nombre,
+    apellido,
+    rol,
+    telefono,
+    direccion,
+    tipo_documento,
+    documento_id,
+    fecha_nacimiento,
+    sueldo_base,
+    estado
+)
+VALUES
+(
+    'William',
+    'Cruz',
+    'Administrador',
+    '829-999-9999',
+    'Villa Francisca',
+    'cedula',
+    '330-0000000-0',
+    '2004-05-15',
+    45000,
+    'Activo'
+);
+INSERT INTO penalizaciones
+(
+    id_alquiler,
+    id_cliente,
+    descripcion,
+    tipo_penalizacion,
+    estado,
+    monto_penalizacion,
+    fecha_pago
+)
+VALUES
+(
+    1,
+    1,
+    'El cliente devolvió la película con daños en el disco.',
+    'Daño',
+    'retrasada',
+    500.00,
+    '2026-07-03 14:30:00'
+);
+
+;
