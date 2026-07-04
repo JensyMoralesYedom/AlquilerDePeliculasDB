@@ -105,54 +105,49 @@ INSERT INTO ejemplares (id_pelicula, id_formatos, estado, codigo_barras) VALUES
 (19, 2, 'disponible', 'BAR-PAS-001'), -- ¿Qué pasó ayer? en DVD
 (20, 1, 'disponible', 'BAR-PSI-001'); -- Psicosis en VHS
 
-INSERT INTO clientes 
-(nombre,apellido, cedula, correo, direccion, estado, telefono )VALUES
-('William',	'Cruz',	'330-0000000-0', 'ejemplo@gmail.com', 'Villa Francisca 2da', 'activo','829-999-9999')
-INSERT INTO empleados
-(
-    nombre,
-    apellido,
-    rol,
-    telefono,
-    direccion,
-    tipo_documento,
-    documento_id,
-    fecha_nacimiento,
-    sueldo_base,
-    estado
-)
-VALUES
-(
-    'William',
-    'Cruz',
-    'Administrador',
-    '829-999-9999',
-    'Villa Francisca',
-    'cedula',
-    '330-0000000-0',
-    '2004-05-15',
-    45000,
-    'Activo'
-);
-INSERT INTO penalizaciones
-(
-    id_alquiler,
-    id_cliente,
-    descripcion,
-    tipo_penalizacion,
-    estado,
-    monto_penalizacion,
-    fecha_pago
-)
-VALUES
-(
-    1,
-    1,
-    'El cliente devolvió la película con daños en el disco.',
-    'Daño',
-    'retrasada',
-    500.00,
-    '2026-07-03 14:30:00'
-);
+-- Insertar membresias
+INSERT INTO membresias (id_membresia, nombre, descripcion, precio, duracion_dias, limite_alquileres, descuento, estado) VALUES
+(1, 'Básica', 'Membresía estándar para alquileres ocasionales.', 300.00, 30, 3, 0.00, 'activa'),
+(2, 'Premium', 'Membresía con mayor límite de alquileres y descuentos.', 600.00, 30, 6, 10.00, 'activa'),
+(3, 'VIP', 'Membresía exclusiva para clientes frecuentes.', 1200.00, 60, 10, 20.00, 'activa');
+
+-- Insertar clientes
+INSERT INTO clientes (id_cliente, id_membresia, nombre, apellido, cedula, correo, direccion, estado, telefono) VALUES
+(1, 1, 'William', 'Cruz', '330-0000000-0', 'william.cruz@example.com', 'Villa Francisca 2da', 'activo', '829-999-9999'),
+(2, 2, 'Ana', 'Pérez', '402-1234567-8', 'ana.perez@example.com', 'Ensanche La Fe', 'activo', '809-555-1111'),
+(3, 1, 'Luis', 'García', '402-7654321-9', 'luis.garcia@example.com', 'Santo Domingo Norte', 'activo', '809-555-2222'),
+(4, 3, 'Marta', 'Sánchez', '402-4567890-1', 'marta.sanchez@example.com', 'Bella Vista', 'activo', '809-555-3333');
+
+-- Insertar empleados
+INSERT INTO empleados (id_empleado, nombre, apellido, rol, telefono, direccion, tipo_documento, documento_id, fecha_nacimiento, sueldo_base, estado) VALUES
+(1, 'William', 'Cruz', 'Administrador', '829-999-9999', 'Villa Francisca', 'cedula', '330-0000000-0', '2004-05-15', 45000, 'activo'),
+(2, 'Carlos', 'Ramírez', 'Atención al cliente', '809-555-4444', 'Los Mina', 'cedula', '402-1111111-1', '1992-03-20', 28000, 'activo'),
+(3, 'Elena', 'Torres', 'Cajero', '809-555-5555', 'Piantini', 'cedula', '402-2222222-2', '1995-08-10', 25000, 'activo');
+
+-- Insertar alquileres
+INSERT INTO alquileres (id_alquiler, id_cliente, id_empleado, fecha_alquiler, fecha_devolucion, estado, total) VALUES
+(1, 1, 1, '2026-06-20 10:00:00', '2026-06-25 18:00:00', 'devuelto', 300.00),
+(2, 2, 2, '2026-07-01 14:00:00', NULL, 'activo', 250.00),
+(3, 3, 3, '2026-06-28 09:30:00', '2026-07-02 12:00:00', 'devuelto', 150.00),
+(4, 4, 1, '2026-07-03 16:00:00', NULL, 'activo', 400.00);
+
+-- Insertar detalle de alquiler
+INSERT INTO detalleAlquiler (id_detalle, id_alquiler, id_ejemplar, precio, fecha_devolucion) VALUES
+(1, 1, 4, 150.00, '2026-06-25 18:00:00'),
+(2, 2, 8, 250.00, NULL),
+(3, 3, 13, 150.00, '2026-07-02 12:00:00'),
+(4, 4, 1, 200.00, NULL),
+(5, 4, 16, 200.00, NULL);
+
+-- Insertar pagos
+INSERT INTO pagos (id_pago, id_alquiler, monto, fecha_pago) VALUES
+(1, 1, 300.00, '2026-06-25 18:30:00'),
+(2, 2, 250.00, '2026-07-01 14:30:00'),
+(3, 3, 150.00, '2026-07-02 12:30:00');
+
+-- Insertar penalizaciones
+INSERT INTO penalizaciones (id_penalizacion, id_alquiler, id_cliente, descripcion, tipo_penalizacion, estado, monto_penalizacion, fecha_pago) VALUES
+(1, 2, 2, 'El cliente devolvió la película con retraso y se aplicó una multa por el tiempo excedido.', 'retraso', 'retrasada', 100.00, '2026-07-04 10:00:00'),
+(2, 4, 4, 'Se reportó daño en el disco de la película alquilada.', 'Daño', 'Pagada', 250.00, '2026-07-03 17:30:00');
 
 ;
